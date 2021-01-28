@@ -1,0 +1,11 @@
+[Unit]
+Description=Update Kolibri channels for all users in the system
+Wants=network.target
+ConditionACPower=true
+
+[Service]
+Type=simple
+# Make sure stamp file is at least 6 hours old or missing
+ExecCondition=bash -c 'test ! -f /var/lock/kolibri-update-channels.service.stamp -o "$(find /var/lock/kolibri-update-channels.service.stamp -mmin +360 2> /dev/null)"'
+ExecStartPre=touch /var/lock/kolibri-update-channels.service.stamp
+ExecStart=/usr/local/bin/kolibri-update-channels
