@@ -15,6 +15,11 @@ run_kolibri() {
     KOLIBRI_HOME="$kolibri_home" su -c "$command" "$user_name"
 }
 
+run_kolibri_import() {
+    run_kolibri "$user_name" "$user_kolibri_home" manage "$1" network \
+        --baseurl "$KOLIBRI_UPDATE_CHANNELS_BASEURL" "$channel"
+}
+
 kolibri_home_relative_path=".var/app/org.learningequality.Kolibri/data/kolibri"
 
 cat /etc/passwd | while read -r user_line; do
@@ -33,8 +38,8 @@ cat /etc/passwd | while read -r user_line; do
         )
 
         for channel in $channels; do
-            run_kolibri "$user_name" "$user_kolibri_home" manage importchannel network "$channel"
-            run_kolibri "$user_name" "$user_kolibri_home" manage importcontent network "$channel"
+            run_kolibri_import importchannel
+            run_kolibri_import importcontent
         done
     else
         echo "User '$user_name' does not use Kolibri, skipping..."
