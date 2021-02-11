@@ -7,7 +7,7 @@ Script to update Kolibri channels in Endless OS when the computer gets connected
 Run:
 
 ```
-sudo make BASEURL="http://your-kolibri-server" install
+sudo ./setup --baseurl "http://your-kolibri-server" --action install
 ```
 
 ## Uninstalling
@@ -15,5 +15,5 @@ sudo make BASEURL="http://your-kolibri-server" install
 Run:
 
 ```
-sudo make uninstall
+sudo ./setup --action uninstall
 ```
