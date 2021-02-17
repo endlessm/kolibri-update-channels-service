@@ -3,7 +3,7 @@
 ACTION=${2}
 
 if [ "${ACTION}" != "connectivity-change" ] || \
-   [ "${CONNECTIVITY_STATE}" == "NONE" ]; then
+   [ "${CONNECTIVITY_STATE}" = "NONE" ]; then
     exit 0
 fi
 
