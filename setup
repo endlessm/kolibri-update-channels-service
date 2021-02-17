@@ -1,6 +1,7 @@
 #!/bin/bash
 
 __system_reload() {
+    rm -f /var/lock/kolibri-update-channels.service.stamp
     systemctl daemon-reload
     systemctl restart NetworkManager-dispatcher.service
 }
