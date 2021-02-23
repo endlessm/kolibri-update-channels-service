@@ -56,3 +56,5 @@ cat /etc/passwd | while read -r user_line; do
         echo "User '$user_name' does not use Kolibri, skipping..."
     fi
 done
+
+exit 0
