@@ -24,7 +24,7 @@ run_kolibri() {
 }
 
 run_kolibri_import() {
-    run_kolibri "$user_name" "$user_kolibri_home" manage "$1" network \
+    run_kolibri "$user_name" "$user_kolibri_home" manage $@ network \
         --baseurl "$KOLIBRI_UPDATE_CHANNELS_BASEURL" "$channel"
 }
 
