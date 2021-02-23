@@ -1,6 +1,5 @@
 [Unit]
 Description=Update Kolibri channels for all users in the system
-Wants=network.target
 ConditionACPower=true
 
 [Service]
