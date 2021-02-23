@@ -20,6 +20,7 @@ run_kolibri() {
     shift
     command="flatpak run --command=kolibri org.learningequality.Kolibri $@"
 
+    echo "Running command for user $user_name: $command" >&2
     KOLIBRI_HOME="$kolibri_home" su -c "$command" "$user_name"
 }
 
