@@ -5,7 +5,4 @@ ConditionACPower=true
 [Service]
 Type=oneshot
 EnvironmentFile=/usr/local/etc/kolibri-update-channels/environment-file
-# Make sure stamp file is at least 6 hours old or missing
-ExecCondition=bash -c 'test ! -f /var/lock/kolibri-update-channels.service.stamp -o "$(find /var/lock/kolibri-update-channels.service.stamp -mmin +360 2> /dev/null)"'
-ExecStartPre=touch /var/lock/kolibri-update-channels.service.stamp
 ExecStart=/usr/local/bin/kolibri-update-channels
