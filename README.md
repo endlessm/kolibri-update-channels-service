@@ -17,3 +17,18 @@ Run:
 ```
 sudo ./setup --action uninstall
 ```
+
+## Testing
+
+This service is only ran when the computer gets connected to any network. But you can start it by hand by running:
+
+```
+sudo rm -f /var/lock/kolibri-update-channels.service.stamp
+sudo systemctl start kolibri-update-channels
+```
+
+To see more details of what the service is doing, run:
+
+```
+journalctl -xef --unit kolibri-update-channels.service
+```
