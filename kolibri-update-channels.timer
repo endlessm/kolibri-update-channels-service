@@ -6,7 +6,6 @@ ConditionACPower=true
 # After 3 minutes the network connection has likely been set up
 OnActiveSec=3m
 OnUnitInactiveSec=1h
-RandomizedDelaySec=30min
 
 [Install]
 WantedBy=multi-user.target
