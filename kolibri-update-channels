@@ -31,7 +31,7 @@ run_kolibri_import() {
 
 show_kolibri_notification() {
     DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$1/bus" \
-        su -c "notify-send -i org.learningequality.Kolibri \"Kolibri automatic updates\" \"$2\"" "$1"
+        su -c "notify-send -i org.learningequality.Kolibri \"Kolibri automatic updates\" \"$3\"" "$2"
 }
 
 kolibri_home_relative_path=".var/app/org.learningequality.Kolibri/data/kolibri"
@@ -44,7 +44,7 @@ cat /etc/passwd | while read -r user_line; do
 
     if [ -f "$user_kolibri_home/db.sqlite3" ]; then
         echo "Updating '$user_name' Kolibri channels"
-        show_kolibri_notification "$user_name" "Updating Kolibri channels"
+        show_kolibri_notification "$user_id" "$user_name" "Updating Kolibri channels"
 
         channels=$(\
             run_kolibri "$user_name" "$user_kolibri_home" manage listchannels 2> /dev/null \
@@ -58,7 +58,7 @@ cat /etc/passwd | while read -r user_line; do
             run_kolibri_import importcontent
         done
 
-        show_kolibri_notification "$user_name" "Kolibri channels update has finished"
+        show_kolibri_notification "$user_id" "$user_name" "Kolibri channels update has finished"
     else
         echo "User '$user_name' does not use Kolibri, skipping..."
     fi
