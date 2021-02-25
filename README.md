@@ -20,10 +20,9 @@ sudo ./setup --action uninstall
 
 ## Testing
 
-This service is only ran when the computer gets connected to any network. But you can start it by hand by running:
+This service is ran automatically approximately every hour by a timer, but you can run it manually by running:
 
 ```
-sudo rm -f /var/lock/kolibri-update-channels.service.stamp
 sudo systemctl start kolibri-update-channels
 ```
 
@@ -31,4 +30,10 @@ To see more details of what the service is doing, run:
 
 ```
 journalctl -xef --unit kolibri-update-channels.service
+```
+
+To see when the next update is due to be executed, run:
+
+```
+systemctl list-timers kolibri-update-channels.timer
 ```
