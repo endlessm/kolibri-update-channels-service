@@ -9,13 +9,16 @@ __system_reload() {
 __run_install() {
     set -o xtrace
 
-    install -D 50-kolibri-update-channels -t /etc/NetworkManager/dispatcher.d/
     install -D kolibri-update-channels -t /usr/local/bin/
     install -D kolibri-update-channels.service -t /usr/local/lib/systemd/system/
+    install -D kolibri-update-channels.timer -t /usr/local/lib/systemd/system/
     echo "KOLIBRI_UPDATE_CHANNELS_BASEURL=$arg_base_url" > environment-file
     install -D environment-file -t /usr/local/etc/kolibri-update-channels/
 
     __system_reload
+
+    systemctl enable kolibri-update-channels.timer
+    systemctl start kolibri-update-channels.timer
 
     set +o xtrace
 }
@@ -23,9 +26,13 @@ __run_install() {
 __run_uninstall() {
     set -o xtrace
 
+    systemctl stop kolibri-update-channels.timer
+    systemctl disable kolibri-update-channels.timer
+
     rm -f /etc/NetworkManager/dispatcher.d/50-kolibri-update-channels
     rm -f /usr/local/bin/kolibri-update-channels
     rm -f /usr/local/lib/systemd/system/kolibri-update-channels.service
+    rm -f /usr/local/lib/systemd/system/kolibri-update-channels.timer
     rm -fr /usr/local/etc/kolibri-update-channels
 
     __system_reload
@@ -69,6 +76,7 @@ while true; do
 done
 
 if [ "$arg_action" = "install" ]; then
+    __run_uninstall
     __run_install
 elif [ "$arg_action" = "uninstall" ]; then
     __run_uninstall

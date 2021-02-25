@@ -1,0 +1,12 @@
+[Unit]
+Description=Timer for kolibri-update-channels.service
+ConditionACPower=true
+
+[Timer]
+# After 3 minutes the network connection has likely been set up
+OnActiveSec=3m
+OnUnitInactiveSec=1h
+RandomizedDelaySec=30min
+
+[Install]
+WantedBy=multi-user.target
