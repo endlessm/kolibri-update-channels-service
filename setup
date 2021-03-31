@@ -9,11 +9,11 @@ __system_reload() {
 __run_install() {
     set -o xtrace
 
-    install -D kolibri-update-channels -t /usr/local/bin/
-    install -D kolibri-update-channels.service -t /usr/local/lib/systemd/system/
-    install -D kolibri-update-channels.timer -t /usr/local/lib/systemd/system/
+    install -D ${mydir}/kolibri-update-channels -t /usr/local/bin/
+    install -D ${mydir}/kolibri-update-channels.service -t /usr/local/lib/systemd/system/
+    install -D ${mydir}/kolibri-update-channels.timer -t /usr/local/lib/systemd/system/
     echo "KOLIBRI_UPDATE_CHANNELS_BASEURL=$arg_base_url" > environment-file
-    install -D environment-file -t /usr/local/etc/kolibri-update-channels/
+    install -D ${mydir}/environment-file -t /usr/local/etc/kolibri-update-channels/
 
     __system_reload
 
@@ -52,6 +52,7 @@ args=$(getopt -o h -l "baseurl:,action:" -- "$@")
     exit 1
 }
 
+mydir=$(readlink -f "$(dirname $0)")
 arg_base_url=""
 arg_action=""
 
