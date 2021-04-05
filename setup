@@ -12,8 +12,10 @@ __run_install() {
     install -D ${mydir}/kolibri-update-channels -t /usr/local/bin/
     install -D ${mydir}/kolibri-update-channels.service -t /usr/local/lib/systemd/system/
     install -D ${mydir}/kolibri-update-channels.timer -t /usr/local/lib/systemd/system/
-    echo "KOLIBRI_UPDATE_CHANNELS_BASEURL=$arg_base_url" > environment-file
-    install -D environment-file -t /usr/local/etc/kolibri-update-channels/
+    tmpdir=$(mktemp -d)
+    echo "KOLIBRI_UPDATE_CHANNELS_BASEURL=$arg_base_url" > ${tmpdir}/environment-file
+    install -D ${tmpdir}/environment-file -t /usr/local/etc/kolibri-update-channels/
+    rm -rf ${tmpdir}
 
     __system_reload
 
